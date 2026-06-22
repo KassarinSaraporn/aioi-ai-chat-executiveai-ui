@@ -62,3 +62,22 @@ export type CustomerRenewalRiskGroupsResponse = {
   period: string
   groups: CustomerRenewalRiskGroup[]
 }
+
+export type AiFeedbackRequest = {
+  sessionId?: string | null
+  messageId?: string | null
+  intent?: string | null
+  period?: string | null
+  rating: 'helpful' | 'not_helpful'
+  comment?: string | null
+}
+
+export type DailyBriefResponse = {
+  period: string
+  language: string
+  summary: string
+  keyHighlights: string[]
+  risks: string[]
+  recommendations: string[]
+  generatedAt: string
+}

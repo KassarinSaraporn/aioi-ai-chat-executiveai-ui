@@ -55,15 +55,15 @@ export function LoginPage({ language, onLanguageChange, onLoginSuccess }: Props)
             <div className="grid gap-3 rounded-3xl bg-white/10 p-5 ring-1 ring-white/20 backdrop-blur">
               <div className="flex items-center gap-3">
                 <ShieldCheck className="h-5 w-5 text-emerald-200" />
-                <span className="text-sm text-blue-50">JWT Authentication</span>
+                <span className="text-sm text-blue-50">Secure Login</span>
               </div>
               <div className="flex items-center gap-3">
                 <ShieldCheck className="h-5 w-5 text-emerald-200" />
-                <span className="text-sm text-blue-50">Chat History on Neon PostgreSQL</span>
+                <span className="text-sm text-blue-50">Conversation History</span>
               </div>
               <div className="flex items-center gap-3">
                 <ShieldCheck className="h-5 w-5 text-emerald-200" />
-                <span className="text-sm text-blue-50">AI Insight from Backend API</span>
+                <span className="text-sm text-blue-50">AI-Powered Business Insight</span>
               </div>
             </div>
           </div>

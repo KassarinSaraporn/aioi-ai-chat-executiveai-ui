@@ -15,7 +15,7 @@ function formatValue(value: number) {
 export function ExecutiveAlerts({ alerts, onAskAi }: ExecutiveAlertsProps) {
   if (!alerts.length) {
     return (
-      <section className="rounded-[1.6rem] border border-emerald-200 bg-emerald-50 p-5">
+      <section className="rounded-[1.4rem] border border-emerald-200 bg-emerald-50 p-4 sm:rounded-[1.6rem] sm:p-5">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-emerald-100 text-emerald-700">
             <AlertTriangle className="h-5 w-5" />
@@ -32,8 +32,8 @@ export function ExecutiveAlerts({ alerts, onAskAi }: ExecutiveAlertsProps) {
   }
 
   return (
-    <section className="rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="mb-4 flex items-center justify-between gap-3">
+    <section className="rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-sm sm:rounded-[1.6rem] sm:p-5">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-lg font-extrabold text-slate-950">
             Executive Alerts
@@ -64,13 +64,13 @@ export function ExecutiveAlerts({ alerts, onAskAi }: ExecutiveAlertsProps) {
               key={`${alert.alertType}-${alert.title}-${index}`}
               className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
             >
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex gap-3">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div className="flex min-w-0 gap-3">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-white text-red-600">
                     <AlertTriangle className="h-5 w-5" />
                   </div>
 
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
                       <h3 className="font-bold text-slate-950">
                         {alert.title}
@@ -92,7 +92,7 @@ export function ExecutiveAlerts({ alerts, onAskAi }: ExecutiveAlertsProps) {
                       </span>
                     </p>
 
-                    <div className="mt-2 flex items-center gap-1 text-xs text-slate-400">
+                    <div className="mt-2 flex min-w-0 items-center gap-1 break-all text-xs text-slate-400 sm:break-normal">
                       <Database className="h-3.5 w-3.5" />
                       {alert.dataSource}
                     </div>
@@ -102,7 +102,7 @@ export function ExecutiveAlerts({ alerts, onAskAi }: ExecutiveAlertsProps) {
                 {onAskAi && (
                   <button
                     onClick={() => onAskAi(question)}
-                    className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-[#1D4499] px-3 py-2 text-sm font-bold text-white hover:bg-[#16377d]"
+                    className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#1D4499] px-3 py-2 text-sm font-bold text-white hover:bg-[#16377d] sm:w-auto"
                   >
                     <Bot className="h-4 w-4" />
                     Ask AI

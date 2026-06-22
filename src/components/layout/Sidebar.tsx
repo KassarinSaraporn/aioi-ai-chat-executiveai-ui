@@ -23,8 +23,8 @@ export function Sidebar({
   const t = getCopy(language)
 
   return (
-    <aside className="flex h-screen w-full flex-col border-r border-slate-200 bg-white/86 backdrop-blur-xl lg:w-[300px]">
-      <div className="flex items-center gap-3 border-b border-slate-200 px-5 py-5">
+    <aside className="flex h-screen w-full flex-col border-r border-slate-200 bg-white/95 backdrop-blur-xl lg:w-[300px]">
+      <div className="flex items-center gap-3 border-b border-slate-200 px-4 py-5 sm:px-5">
         <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#1D4499] to-[#ED1F29] text-white shadow-lg shadow-blue-900/15">
           <Bot className="h-6 w-6" />
         </div>
@@ -34,14 +34,14 @@ export function Sidebar({
         </div>
       </div>
 
-      <div className="px-4 py-4">
+      <div className="px-3 py-4 sm:px-4">
         <button className="flex w-full items-center gap-3 rounded-2xl bg-blue-50 px-4 py-3 text-left font-semibold text-[#1D4499] ring-1 ring-blue-100">
           <LayoutDashboard className="h-5 w-5" />
           {String(t.dashboard)}
         </button>
       </div>
 
-      <div className="flex min-h-0 flex-1 flex-col px-4 pb-4">
+      <div className="flex min-h-0 flex-1 flex-col px-3 pb-4 sm:px-4">
         <div className="mb-3 flex items-center justify-between px-1">
           <h2 className="text-sm font-bold text-slate-700">{String(t.recentConversations)}</h2>
           <Search className="h-4 w-4 text-slate-400" />
@@ -82,7 +82,7 @@ export function Sidebar({
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold">
-                    {truncate(session.title || 'บทสนทนาใหม่', 34)}
+                    {truncate(session.title || 'บทสนทนาใหม่', 30)}
                   </p>
                   <p className={`mt-1 text-xs ${isActive ? 'text-blue-100' : 'text-slate-400'}`}>
                     {compactDate(session.updatedAt)}

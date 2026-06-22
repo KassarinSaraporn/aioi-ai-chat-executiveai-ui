@@ -17,8 +17,9 @@ import { ExecutiveAlerts } from './components/dashboard/ExecutiveAlerts'
 import { CustomerRenewalRisk } from './components/dashboard/CustomerRenewalRisk'
 import { getCustomerRenewalRiskGroups } from './services/executiveAiApi'
 import type { CustomerRenewalRiskGroup } from './types/executive'
-
-
+import { saveAiFeedback } from './services/executiveAiApi'
+import { getDailyBrief } from './services/executiveAiApi'
+import type { DailyBriefResponse } from './types/executive'
 
 function App() {
   const [language, setLanguage] = useState<Language>('th')
@@ -38,13 +39,16 @@ function App() {
 const [aiLoading, setAiLoading] = useState(false)
   const [aiResult, setAiResult] = useState<AskExecutiveResponse | null>(null)
 const [renewalRiskGroups, setRenewalRiskGroups] = useState<CustomerRenewalRiskGroup[]>([])
+const [feedbackStatus, setFeedbackStatus] = useState('')
+const [dailyBrief, setDailyBrief] = useState<DailyBriefResponse | null>(null)
+const [dailyBriefLoading, setDailyBriefLoading] = useState(false)
   const t = useMemo(() => getCopy(language), [language])
   
-    useEffect(() => {
-      if (user && getToken()) {
-        void loadSessions()
-      }
-    }, [user])
+useEffect(() => {
+  if (!user || !getToken()) return
+loadSessions()
+  loadDailyBrief()
+}, [user, period, language])
 
  useEffect(() => {
     const loadDashboard = async () => {
@@ -113,6 +117,42 @@ const [renewalRiskGroups, setRenewalRiskGroups] = useState<CustomerRenewalRiskGr
       setLoadingMessages(false)
     }
   }
+async function loadDailyBrief() {
+  setDailyBriefLoading(true)
+
+  try {
+    const result = await getDailyBrief(period, language)
+    setDailyBrief(result)
+  } catch (error) {
+    console.error(error)
+  } finally {
+    setDailyBriefLoading(false)
+  }
+}
+async function handleFeedback(rating: 'helpful' | 'not_helpful') {
+  if (!aiResult) return
+
+  setFeedbackStatus('')
+
+  try {
+    await saveAiFeedback({
+      sessionId: aiResult.sessionId,
+      messageId: null,
+      intent: aiResult.intent,
+      period: aiResult.period,
+      rating,
+      comment: null,
+    })
+
+    setFeedbackStatus(
+      rating === 'helpful'
+        ? 'ขอบคุณสำหรับ Feedback: มีประโยชน์'
+        : 'ขอบคุณสำหรับ Feedback: ไม่ถูกต้อง'
+    )
+  } catch (error) {
+    setFeedbackStatus('ไม่สามารถบันทึก Feedback ได้')
+  }
+}
 
   function handleLoginSuccess(authUser: AuthUser) {
     setUser(authUser)
@@ -332,7 +372,11 @@ async function handleAskAiFromAlert(question: string) {
               />
             </div>
 
-            <InsightPanel language={language} />
+            <InsightPanel
+  language={language}
+  brief={dailyBrief}
+  loading={dailyBriefLoading}
+/>
           </div>
         </div>
       </div>
@@ -341,3 +385,69 @@ async function handleAskAiFromAlert(question: string) {
 }
 
 export default App
+
+
+
+/*
+
+export function InsightPanel({ language }: { language: Language }) {
+  const t = getCopy(language)
+
+  return (
+    <aside className="space-y-5">
+      <section className="rounded-[1.7rem] border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="mb-5 flex items-center justify-between">
+          <h2 className="font-extrabold text-slate-950">{String(t.insightToday)}</h2>
+          <Activity className="h-5 w-5 text-[#1D4499]" />
+        </div>
+
+        <div className="space-y-3">
+          <InsightItem
+            tone="red"
+            icon={<TrendingUp className="h-5 w-5" />}
+            title="เบี้ยประกันเติบโตดี"
+            desc="ยอดขายเบี้ยประกันรวมเพิ่มขึ้น"
+            value="12.6%"
+            trend={<ArrowUpRight className="h-4 w-4" />}
+          />
+          <InsightItem
+            tone="green"
+            icon={<ShieldCheck className="h-5 w-5" />}
+            title="Loss Ratio ลดลง"
+            desc="อัตราสินไหมสุทธิลดลง"
+            value="-4.8%"
+            trend={<ArrowDownRight className="h-4 w-4" />}
+          />
+          <InsightItem
+            tone="blue"
+            icon={<Activity className="h-5 w-5" />}
+            title="Renewal Rate ดีขึ้น"
+            desc="อัตราต่ออายุกรมธรรม์เพิ่มขึ้น"
+            value="+3.2%"
+            trend={<ArrowUpRight className="h-4 w-4" />}
+          />
+        </div>
+      </section>
+
+      <section className="rounded-[1.7rem] border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="font-extrabold text-slate-950">{String(t.dataSources)}</h2>
+          <Database className="h-5 w-5 text-[#1D4499]" />
+        </div>
+        <div className="space-y-3">
+          {['Data Warehouse', 'Claims System', 'Policy Admin'].map((source, index) => (
+            <div key={source} className="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3">
+              <span className="text-sm font-semibold text-slate-700">{source}</span>
+              <span className="text-xs text-slate-400">อัปเดต 10:{30 - index * 2}</span>
+            </div>
+          ))}
+        </div>
+        <button className="mt-4 text-sm font-bold text-[#1D4499] hover:underline">
+          {String(t.viewAllSources)}
+        </button>
+      </section>
+    </aside>
+  )
+}
+
+*/

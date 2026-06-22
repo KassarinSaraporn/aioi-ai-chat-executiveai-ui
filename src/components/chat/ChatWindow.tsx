@@ -29,14 +29,14 @@ export function ChatWindow({
   const t = getCopy(language)
 
   return (
-    <section className="rounded-[2rem] border border-slate-200 bg-white p-4 shadow-sm lg:p-5">
-      <div className="scrollbar-soft max-h-[610px] min-h-[470px] space-y-5 overflow-y-auto rounded-[1.6rem] bg-slate-50/70 p-4">
+    <section className="rounded-[1.5rem] border border-slate-200 bg-white p-3 shadow-sm sm:p-4 lg:rounded-[2rem] lg:p-5">
+      <div className="scrollbar-soft max-h-[58vh] min-h-[360px] space-y-4 overflow-y-auto rounded-[1.3rem] bg-slate-50/70 p-3 sm:min-h-[430px] sm:space-y-5 sm:p-4 lg:max-h-[610px] lg:rounded-[1.6rem]">
         {messages.length === 0 && !loading && (
-          <div className="flex min-h-[380px] flex-col items-center justify-center text-center">
+          <div className="flex min-h-[300px] flex-col items-center justify-center text-center sm:min-h-[380px]">
             <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-3xl bg-blue-50 text-[#1D4499]">
               <Bot className="h-8 w-8" />
             </div>
-            <h3 className="text-xl font-extrabold text-slate-950">{String(t.emptyTitle)}</h3>
+            <h3 className="text-lg font-extrabold text-slate-950 sm:text-xl">{String(t.emptyTitle)}</h3>
             <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
               {String(t.emptyDescription)}
             </p>

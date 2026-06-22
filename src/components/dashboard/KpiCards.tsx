@@ -38,11 +38,11 @@ function formatMoneyShort(value: number | null | undefined) {
 export function KpiCards({ kpi }: KpiCardsProps) {
   if (!kpi) {
     return (
-      <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {[1, 2, 3, 4, 5, 6, 7].map((item) => (
           <article
             key={item}
-            className="h-36 animate-pulse rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm"
+            className="h-32 animate-pulse rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-sm sm:h-36 sm:rounded-[1.6rem] sm:p-5"
           >
             <div className="h-4 w-28 rounded bg-slate-200" />
             <div className="mt-5 h-8 w-24 rounded bg-slate-200" />
@@ -135,7 +135,7 @@ export function KpiCards({ kpi }: KpiCardsProps) {
   ]
 
   return (
-    <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <section className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
       {cards.map((card) => {
         const Icon = card.icon
         const DirectionIcon = card.direction === 'down' ? ArrowDownRight : ArrowUpRight
@@ -152,16 +152,16 @@ export function KpiCards({ kpi }: KpiCardsProps) {
         return (
           <article
             key={card.title}
-            className="rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm"
+            className="rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-sm sm:rounded-[1.6rem] sm:p-5"
           >
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="text-sm font-semibold text-slate-500">
                   {card.title}
                 </p>
 
                 <div className="mt-3 flex items-end gap-2">
-                  <p className="text-3xl font-extrabold text-slate-950">
+                  <p className="text-2xl font-extrabold text-slate-950 sm:text-3xl">
                     {card.value}
                   </p>
 
@@ -173,12 +173,12 @@ export function KpiCards({ kpi }: KpiCardsProps) {
                 </div>
               </div>
 
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-[#1D4499]">
-                <Icon className="h-6 w-6" />
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-blue-50 text-[#1D4499] sm:h-12 sm:w-12">
+                <Icon className="h-5 w-5 sm:h-6 sm:w-6" />
               </div>
             </div>
 
-            <div className={`mt-4 flex items-center gap-2 text-sm font-semibold ${statusClass}`}>
+            <div className={`mt-4 flex flex-wrap items-center gap-2 text-xs font-semibold sm:text-sm ${statusClass}`}>
               <DirectionIcon className="h-4 w-4" />
               {card.change}
             </div>

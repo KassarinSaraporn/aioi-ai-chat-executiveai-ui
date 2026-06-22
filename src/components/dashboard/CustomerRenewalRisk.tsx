@@ -15,7 +15,7 @@ function formatNumber(value: number) {
 export function CustomerRenewalRisk({ groups, onAskAi }: Props) {
   if (!groups.length) {
     return (
-      <section className="rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm">
+      <section className="rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-sm sm:rounded-[1.6rem] sm:p-5">
         <h2 className="text-lg font-extrabold text-slate-950">
           Customer Renewal Risk
         </h2>
@@ -27,8 +27,8 @@ export function CustomerRenewalRisk({ groups, onAskAi }: Props) {
   }
 
   return (
-    <section className="rounded-[1.6rem] border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="mb-4 flex items-center justify-between gap-3">
+    <section className="rounded-[1.4rem] border border-slate-200 bg-white p-4 shadow-sm sm:rounded-[1.6rem] sm:p-5">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-lg font-extrabold text-slate-950">
             Customer Renewal Risk
@@ -56,13 +56,13 @@ export function CustomerRenewalRisk({ groups, onAskAi }: Props) {
               key={item.customerGroup}
               className="rounded-2xl border border-slate-200 bg-slate-50 p-4"
             >
-              <div className="flex items-start justify-between gap-4">
-                <div>
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                <div className="min-w-0 flex-1">
                   <h3 className="font-bold text-slate-950">
                     {item.customerGroup}
                   </h3>
 
-                  <div className="mt-2 grid gap-2 text-sm text-slate-600 sm:grid-cols-2 lg:grid-cols-4">
+                  <div className="mt-2 grid gap-2 text-sm text-slate-600 sm:grid-cols-2 xl:grid-cols-4">
                     <p>
                       Renewal Due:{' '}
                       <span className="font-bold text-slate-900">
@@ -105,7 +105,7 @@ export function CustomerRenewalRisk({ groups, onAskAi }: Props) {
                 {onAskAi && (
                   <button
                     onClick={() => onAskAi(question)}
-                    className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-[#1D4499] px-3 py-2 text-sm font-bold text-white hover:bg-[#16377d]"
+                    className="inline-flex w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#1D4499] px-3 py-2 text-sm font-bold text-white hover:bg-[#16377d] sm:w-auto"
                   >
                     <Bot className="h-4 w-4" />
                     Ask AI
